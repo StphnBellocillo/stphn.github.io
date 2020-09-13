@@ -41,7 +41,7 @@ library.httpGetMediaImageUrl = function (url) {
         arr.push(obj.ImageUrl);
     }
     console.log("arr", arr);
-    return arr;
+    return JSON.parse(arr);
 }
 
 library.httpGet = function (theUrl) {
@@ -57,8 +57,9 @@ library.Table = function (url) {
     let objUrl = library.httpGetMediaImageUrl(url);
     console.log("objUrl", objUrl);
     for(let i in objUrl){
+        console.log()
         rowString += '<div class="col-sm">\n';
-        rowString += '<img class="card-img-top" src="' + objUrl[i]["media_url"] + '">\n';
+        rowString += '<img class="card-img-top" src="' + objUrl[i].media_url + '">\n';
         rowString += '</div>\n';
 
         /*        console.log("count", count);*/
