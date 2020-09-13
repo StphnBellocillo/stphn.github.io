@@ -37,7 +37,7 @@ library.httpGetMediaImageUrl = function (url) {
     for(var i in objMediaIds){
         console.log("httpGetMediaImageUrl objMediaIds:",objMediaIds[i] );
         obj.ImageUrl = "https://graph.instagram.com/" +objMediaIds[i]
-            + "?fields=id,media_type,media_url,username,timestamp&access_token="+stAccountMediaId;
+            + "?fields=id,media_type,media_url,username,timestamp&access_token="+stIGAccessToken;
         arr.push(obj.ImageUrl);
     }
     console.log("arr", arr);
