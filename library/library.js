@@ -1,7 +1,7 @@
 const xmlHttp = new XMLHttpRequest();
 const library = {};
 
-let stIGAccessToken = "AQA_hRQkRnBsqpV22azJxPUwgRkhTt2kVtuZLEA3eRERBmDsQ4NaKvlAzE5PGQ_5iSTOZz1FwSafqGS2uUxoqr2ReDHOcJndCQj7CaMnBszOTYmZJWqGBz0C9gRRWgI7XrGHAZeZYrcenwo1uCER0tch4HVV6pS-qC9H-Z1n9z-HpsYcmRrWJ4RWuKFNKAS3EUy9GW_aK5kCnYC-iZFA9D8CMndA7jW0Kd4SiVof0E3Rog";
+let stIGAccessToken = "IGQVJWYkFlV1VMZAXVLTGViMDEtT1duZAjRnRjM5MkJLbDZAwZADZAIeVA2bm5rWDA4cnYzVjVKR2xTYWJMSTdjZAlpNbEpoN0lQSXpNdXBKTUdNWkhjWjRvd2lrSm4yQlFyYVlWUVBHU0hrd185TjI0SEJITndVcGlMX3NYVlFF";
 let stAccountMediaId = "https://graph.instagram.com/me/media?fields=id,caption&access_token=" + stIGAccessToken;
 
 library.httpGetMediaId = function (url) {
