@@ -1,11 +1,14 @@
 import {library} from './library/library';
 
-let stIGAccessToken = "IGQVJXbGRYdGc1UzZA5LW8xRXVXbXF3Ym1zeG13VERBU29uV0FlVHZAiWDBWQjFBQnRsTGUyM0x2U2hQM3dNb1N4YjZAGbnZAwQnZArWHNHUldnT180N3R4TjJveENxMkpnSGhQMEZAfeDRMMGM1RHBLdUp1dmJlN2NFclh4MUU0";
+let stIGAccessToken = "IGQVJVWUh2SXVfU0NYMEhwaGMyRkNNYUlNblMwdkhwUXJnZA1N2NjlFT08zekhpZA0JwMXo3cC1zdTc3N0xmdFZAhMm9fZAXdVOUY3QWtxYWpOVXVpSXZAqMWw3YmR1RjREanFtUlBRSzhNZAlpJV04zWGlERnVWR0xSUTBrbmNj";
 let stAccountMediaId = "https://graph.instagram.com/me/media?fields=id,caption&access_token=" + stIGAccessToken;
 
 function load(){
-    library.Table(stAccountMediaId);
-    console.debug("library.Table(stAccountMediaId);", library.Table(stAccountMediaId));
+   var htmlString = library.Table(stAccountMediaId);
+    console.log("library.Table(stAccountMediaId);", library.Table(stAccountMediaId));
+    var str = document.getElementById("ig").innerHTML;
+    var res = str.replace("{imageTable}", htmlString);
+    document.getElementById("ig").innerHTML = res;
 }
 
 
