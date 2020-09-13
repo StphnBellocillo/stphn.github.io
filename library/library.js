@@ -35,10 +35,12 @@ library.httpGetMediaImageUrl = function (url) {
     let objMediaIds = library.httpGetMediaId(url);
     /*    console.log("httpGetMediaImageUrl obj:", objMediaIds);*/
     for(var i in objMediaIds){
-        console.log("httpGetMediaImageUrl objMediaIds:",objMediaIds[i] );
-        obj.ImageUrl = "https://graph.instagram.com/" +objMediaIds[i]
+         let imgUrl = "https://graph.instagram.com/" +objMediaIds[i]
             + "?fields=id,media_type,media_url,username,timestamp&access_token="+stIGAccessToken;
-        arr.push(obj.ImageUrl);
+         let MediaUrl = library.httpGet(imgUrl);
+        console.log("MediaUrl", MediaUrl);
+         console.log("MediaUrl", MediaUrl.media_url);
+          arr.push(obj);
     }
     console.log("arr", arr);
     return JSON.parse(arr);
