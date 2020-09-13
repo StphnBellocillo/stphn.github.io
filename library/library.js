@@ -58,7 +58,7 @@ library.Table = function (url) {
     console.log("objUrl", objUrl);
     for(let i in objUrl){
         rowString += '<div class="col-sm">\n';
-        rowString += '<img class="card-img-top" src="' + objUrl[i] + '">\n';
+        rowString += '<img class="card-img-top" src="' + objUrl[i].media_url + '">\n';
         rowString += '</div>\n';
 
         /*        console.log("count", count);*/
