@@ -22,31 +22,24 @@
             var settings = {
                 "async": true,
                 "crossDomain": true,
-                "url": "https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=47b89ddecddf649177da923f432039e3&photoset_id=72157698008301705&user_id=134410275@N08",
+                "url": "https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=47b89ddecddf649177da923f432039e3&photoset_id=72157716518018777&user_id=134410275@N08",
                 "method": "GET",
                 "headers": {}
             }
 
             $.ajax(settings).done(function (data) {
                 var json = xmlToJson.parse(data);
-                console.log("test", json.rsp.photos.photo);
+                console.log("test", json.rsp.photoset.photo);
+                var objPhoto = json.rsp.photoset.photo;
 
-
-                // $("#galleryTitle").append(json.rsp.photos.photo[0].title + " Gallery");
-                $.each(json.rsp.photos.photo, function (i, gp) {
-
-                    var farmId = gp.farm;
-                    var serverId = gp.server;
-                    var id = gp.id;
-                    var secret = gp.secret;
-
-                    console.log(farmId + ", " + serverId + ", " + id + ", " + secret);
-
-                    //  https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg
+                for (var index = 0; index < objPhoto.length; index++) {
+                    var farmId = objPhoto[index].farm;
+                    var serverId = objPhoto[index].server;
+                    var id = objPhoto[index].id;
+                    var secret = objPhoto[index].secret;
 
                     $("#flickr").append('<img src="https://farm' + farmId + '.staticflickr.com/' + serverId + '/' + id + '_' + secret + '.jpg"/>');
-
-                });
+                }
             });
         })
 
@@ -175,10 +168,10 @@
         <!-- <div class="container" id="ig">
             {imageTable}
         </div> -->
-         <div class="container" id="footerimages">
+        <div class="container" id="footerimages">
             <div style="clear:both;"></div>
             <div style="height: 500; width: 500;" id="flickr"></div>
-         </div>
+        </div>
     </div>
 
     <!--
