@@ -6,155 +6,189 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <!-- Bootstrap CSS -->
- <!--   <script src="index.js" type="module"></script>-->
-    <script type="text/javascript" src="./library/library.js"></script>
-    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" rel="stylesheet">
+    <!--   <script src="index.js" type="module"></script>-->
 
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" rel="stylesheet">
+    <script src="xmlToJson.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $(function onload($) {
+            console.log($.ajax);
+            console.log("Helloword!");
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "https://api.flickr.com/services/rest/?method=flickr.galleries.getPhotos&api_key=47b89ddecddf649177da923f432039e3&gallery_id=72157716510090293",
+                "method": "GET",
+                "headers": {}
+            }
+
+            $.ajax(settings).done(function (data) {
+                var json = xmlToJson.parse(data);
+                console.log("test", json.rsp.photos.photo);
+
+
+                $("#galleryTitle").append(json.rsp.photos.photo[0].title + " Gallery");
+                $.each(json.rsp.photos.photo, function (i, gp) {
+
+                    var farmId = gp.farm;
+                    var serverId = gp.server;
+                    var id = gp.id;
+                    var secret = gp.secret;
+
+                    console.log(farmId + ", " + serverId + ", " + id + ", " + secret);
+
+                    //  https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{secret}.jpg
+
+                    $("#flickr").append('<img src="https://farm' + farmId + '.staticflickr.com/' + serverId + '/' + id + '_' + secret + '.jpg"/>');
+
+                });
+            });
+        })
+
+    </script>
     <title>Stphn</title>
 
 </head>
 
-<script>
-    function load(){
-        let stIGAccessToken = "IGQVJWYkFlV1VMZAXVLTGViMDEtT1duZAjRnRjM5MkJLbDZAwZADZAIeVA2bm5rWDA4cnYzVjVKR2xTYWJMSTdjZAlpNbEpoN0lQSXpNdXBKTUdNWkhjWjRvd2lrSm4yQlFyYVlWUVBHU0hrd185TjI0SEJITndVcGlMX3NYVlFF";
-        let stAccountMediaId = "https://graph.instagram.com/me/media?fields=id,caption&access_token=" + stIGAccessToken;
+<body onload="onload()">
+    <div class="bg-img">
+        <nav class="navbar navbar-light navbar-expand-lg">
+            <a class="navbar-brand text-white" href="#">Stphn</a>
+            <button class="navbar-toggler" data-target="#navbarCollapse" data-toggle="collapse"><span
+                    class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="navbar-item">
+                        <a class="nav-link text-white" href="#home">HOME</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a class="nav-link text-white" href="#blog">BLOG</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a class="nav-link text-white" href="#about">ABOUT ME</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a class="nav-link text-white" href="#contact">CONTACT</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
 
-        console.log("load...", library);
-        var htmlString = library.Table(stAccountMediaId);
-        console.log("library.Table(stAccountMediaId);", library.Table(stAccountMediaId));
-        var str = document.getElementById("ig").innerHTML;
-        var res = str.replace("{imageTable}", htmlString);
-        document.getElementById("ig").innerHTML = res;
-    }
-</script>
-<body onload="load()">
-<div class="bg-img">
-    <nav class="navbar navbar-light navbar-expand-lg">
-        <a class="navbar-brand text-white" href="#">Stphn</a>
-        <button class="navbar-toggler" data-target="#navbarCollapse" data-toggle="collapse"><span
-                class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav ml-auto">
-                <li class="navbar-item">
-                    <a class="nav-link text-white" href="#home">HOME</a>
-                </li>
-                <li class="navbar-item">
-                    <a class="nav-link text-white" href="#blog">BLOG</a>
-                </li>
-                <li class="navbar-item">
-                    <a class="nav-link text-white" href="#about">ABOUT ME</a>
-                </li>
-                <li class="navbar-item">
-                    <a class="nav-link text-white" href="#contact">CONTACT</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
-    <div class="carousel-caption">
-        <h1 class="display-4">Sthpn Sample</h1>
-        <h4>Complete Website Layout</h4>
-        <button class="btn btn-outline-light btn-sm" type="button">VIEW DEMO</button>
-        <button class="btn btn-primary btn-sm" type="button">GET STARTED</button>
-    </div>
-
-</div>
-
-<br>
-<br>
-<br>
-<div class="container" id="home">
-    <div class="row">
-        <div class="col-sm">
-            <h5>What is Lorem Ipsum?</h5>
-            <p class="text-left">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                Ipsum has been the
-                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
-                and scrambled it to make a type specimen book. It has survived not only five centuries, but also the
-                leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s
-                with the release
-                of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
-                software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-        </div>
-        <div class="col-sm">
-            <h5>What is Lorem Ipsum?</h5>
-            <p class="text-left">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                Ipsum has been the
-                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
-                and scrambled it to make a type specimen book. It has survived not only five centuries, but also the
-                leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s
-                with the release
-                of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
-                software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-        </div>
-    </div>
-</div>
-<br>
-<br>
-<br>
-<div class="container">
-    <div class="row">
-        <div class="col-sm">
-            <img class="card-img-top" src="img/k1.JPG">
-        </div>
-        <div class="col-sm">
-            <img class="card-img-top" src="img/k2.JPG">
-        </div>
-        <div class="col-sm">
-            <img class="card-img-top" src="img/k3.JPG">
+        <div class="carousel-caption">
+            <h1 class="display-4">Sthpn Sample</h1>
+            <h4>Complete Website Layout</h4>
+            <button class="btn btn-outline-light btn-sm" type="button">VIEW DEMO</button>
+            <button class="btn btn-primary btn-sm" type="button">GET STARTED</button>
         </div>
 
     </div>
-</div>
-<br>
-<br>
-<br>
-<div id="blog">
+
+    <br>
+    <br>
+    <br>
+    <div class="container" id="home">
+        <div class="row">
+            <div class="col-sm">
+                <h5>What is Lorem Ipsum?</h5>
+                <p class="text-left">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                    Ipsum has been the
+                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+                    and scrambled it to make a type specimen book. It has survived not only five centuries, but also the
+                    leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s
+                    with the release
+                    of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
+                    software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+            </div>
+            <div class="col-sm">
+                <h5>What is Lorem Ipsum?</h5>
+                <p class="text-left">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                    Ipsum has been the
+                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+                    and scrambled it to make a type specimen book. It has survived not only five centuries, but also the
+                    leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s
+                    with the release
+                    of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
+                    software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
     <div class="container">
-        <h5>My works</h5>
         <div class="row">
-            <p class="text-center">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                Ipsum has been the
-                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
-                and scrambled it to make a type specimen book. It has survived not only five centuries, but also the
-                leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s
-                with the release
-                of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
-                software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+            <div class="col-sm">
+                <img class="card-img-top" src="img/k1.JPG">
+            </div>
+            <div class="col-sm">
+                <img class="card-img-top" src="img/k2.JPG">
+            </div>
+            <div class="col-sm">
+                <img class="card-img-top" src="img/k3.JPG">
+            </div>
 
         </div>
     </div>
     <br>
     <br>
     <br>
-    <div class="container" id="about">
-        <h5>About</h5>
-        <div class="row">
-            <p class="text-center">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                Ipsum has been the
-                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
-                and scrambled it to make a type specimen book. It has survived not only five centuries, but also the
-                leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s
-                with the release
-                of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
-                software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-            <p class="font-italic text-right">-Stephen Bellocillo</p>
+    <div id="blog">
+        <div class="container">
+            <h5>My works</h5>
+            <div class="row">
+                <p class="text-center">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                    Ipsum has been the
+                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+                    and scrambled it to make a type specimen book. It has survived not only five centuries, but also the
+                    leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s
+                    with the release
+                    of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
+                    software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+
+            </div>
         </div>
+        <br>
+        <br>
+        <br>
+        <div class="container" id="about">
+            <h5>About</h5>
+            <div class="row">
+                <p class="text-center">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                    Ipsum has been the
+                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
+                    and scrambled it to make a type specimen book. It has survived not only five centuries, but also the
+                    leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s
+                    with the release
+                    of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
+                    software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <p class="font-italic text-right">-Stephen Bellocillo</p>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <!-- <div class="container" id="ig">
+            {imageTable}
+        </div> -->
+        <h2>
+            <div id="galleryTitle"></div>
+            <div style="clear:both;"></div>
+            <div id="flickr"></div>
+
+        </h2>
     </div>
-    <br>
-    <br>
-    <br>
-    <div class="container" id="ig">
-        {imageTable}
-    </div>
-</div>
-<!--
+
+    <!--
 <div class="container-fluid">
       <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release
            of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
 </div> -->
-<!--
+    <!--
 <header class="masthead">
     <div class="container h-100">
         <div class="row h-100 align-items-center">
@@ -166,27 +200,26 @@
     </div>
 </header> -->
 
-<footer id="contact">
-    <div class="container-fluid padding text-center">
-        <div>
-            <h10 class="text-center">&copy; www.stphn.com</h10>
+    <footer id="contact">
+        <div class="container-fluid padding text-center">
+            <div>
+                <h10 class="text-center">&copy; www.stphn.com</h10>
+            </div>
         </div>
-    </div>
-    </div>
-</footer>
+        </div>
+    </footer>
 
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script crossorigin="anonymous"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script crossorigin="anonymous" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-<script crossorigin="anonymous"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    <script crossorigin="anonymous" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script crossorigin="anonymous"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    <script crossorigin="anonymous" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<link href="style.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
 
 </body>
 
